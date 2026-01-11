@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Info Page | barishal270</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f2f4f8;
+}
+.header{
+    background:#0088cc;
+    color:#fff;
+    text-align:center;
+    padding:16px;
+    font-size:20px;
+    font-weight:bold;
+}
+.container{
+    max-width:420px;
+    margin:20px auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+label{
+    display:block;
+    margin-top:12px;
+    font-size:14px;
+    font-weight:bold;
+}
+input{
+    width:100%;
+    padding:10px;
+    margin-top:6px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+.preview{
+    margin-top:20px;
+    padding:15px;
+    background:#f9f9f9;
+    border-radius:8px;
+}
+.preview p{
+    margin:6px 0;
+}
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    background:#0088cc;
+    color:#fff;
+    font-weight:bold;
+}
+.note{
+    margin-top:15px;
+    font-size:13px;
+    color:#666;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    Telegram: @barishal270
+</div>
+
+<div class="container">
+    <h3>Enter Your Information</h3>
+
+    <label>Your Name</label>
+    <input type="text" id="name" placeholder="Enter your name" oninput="updatePreview()">
+
+    <label>Father's Name</label>
+    <input type="text" id="father" placeholder="Enter father's name" oninput="updatePreview()">
+
+    <label>Date of Birth</label>
+    <input type="date" id="dob" oninput="updatePreview()">
+
+    <div class="preview" id="printArea">
+        <h4>Preview</h4>
+        <p><b>Name:</b> <span id="pname">---</span></p>
+        <p><b>Father's Name:</b> <span id="pfather">---</span></p>
+        <p><b>Date of Birth:</b> <span id="pdob">---</span></p>
+    </div>
+
+    <div class="buttons">
+        <button onclick="window.print()">Print</button>
+        <button onclick="downloadText()">Download</button>
+    </div>
+
+    <div class="note">
+        This data is visible only to you.
+    </div>
+</div>
+
+<script>
+function updatePreview(){
+    document.getElementById("pname").innerText =
+        document.getElementById("name").value || "---";
+    document.getElementById("pfather").innerText =
+        document.getElementById("father").value || "---";
+    document.getElementById("pdob").innerText =
+        document.getElementById("dob").value || "---";
+}
+
+function downloadText(){
+    let text =
+        "Name: " + (document.getElementById("name").value || "") + "\n" +
+        "Father's Name: " + (document.getElementById("father").value || "") + "\n" +
+        "Date of Birth: " + (document.getElementById("dob").value || "");
+
+    let blob = new Blob([text], {type: "text/plain"});
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "user-info.txt";
+    link.click();
+}
+</script>
+
+</body>
+</html>
